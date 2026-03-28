@@ -28,13 +28,13 @@ const Navbar = () => {
       </div>
 
       <div className="nav-extras">
-        <div className="lang-selector">
+        {/* <div className="lang-selector">
           <FaLanguage className="lang-icon" />
           <select value={user.lang} onChange={(e) => setLanguage(e.target.value)}>
             <option value="en">EN</option>
             <option value="es">ES</option>
           </select>
-        </div>
+        </div> */}
         
         {user.isPro ? (
           <div className="pro-status pro-active">
@@ -42,7 +42,7 @@ const Navbar = () => {
           </div>
         ) : (
           <div className="pro-status pro-inactive">
-            Free
+            
           </div>
         )}
       </div>

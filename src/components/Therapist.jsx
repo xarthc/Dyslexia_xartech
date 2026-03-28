@@ -1,7 +1,21 @@
+import { useState } from "react";
 import contactImg from "../assets/contact.jpg"; 
 // replace with your image name if you paste locally
 
+const configuredApiBase = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
+const apiBaseUrl = import.meta.env.DEV ? "" : configuredApiBase;
+
 const Therapist = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    symptom: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
+
   const therapists = [
     {
       img: "https://images.jdmagicbox.com/v2/comp/delhi/e2/011pxx11.xx11.160108115000.w5e2/catalogue/dr-owais-a-farooqui-psycare-jasola-vihar-delhi-3k1q77u.jpg",
@@ -29,6 +43,60 @@ const Therapist = () => {
       location: "Ashok Vihar, Delhi",
     },
   ];
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus({ type: "", message: "" });
+
+    const payload = {
+      name: `${formData.firstName} ${formData.lastName}`.trim(),
+      email: formData.email,
+      subject: "Therapist Contact Request",
+      message: `Phone: ${formData.phone}\nSymptoms: ${formData.symptom}`,
+    };
+
+    try {
+      const response = await fetch(`${apiBaseUrl}/api/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(result?.error || "Unable to submit your request right now.");
+      }
+
+      setStatus({
+        type: "success",
+        message: "Submitted successfully. A therapist will contact you soon.",
+      });
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        symptom: "",
+      });
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: error.message || "Unable to submit your request right now.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div
@@ -67,17 +135,53 @@ const Therapist = () => {
 
         <div className="form-container">
           <h3>Contact Form</h3>
-          <form>
-            <input type="text" placeholder="First Name" required />
-            <input type="text" placeholder="Last Name" required />
-            <input type="email" placeholder="Email Address" required />
-            <input type="number" placeholder="Contact Number" required />
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Contact Number"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
             <textarea
+              name="symptom"
               placeholder="What is your symptom?"
               rows="4"
+              value={formData.symptom}
+              onChange={handleChange}
               required
             ></textarea>
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit"}
+            </button>
+            {status.message ? (
+              <p className={`therapist-contact-status ${status.type}`}>{status.message}</p>
+            ) : null}
           </form>
         </div>
       </div>

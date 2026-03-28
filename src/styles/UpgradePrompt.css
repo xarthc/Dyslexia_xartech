@@ -1,0 +1,163 @@
+.upgrade-prompt-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.05);
+  min-height: 400px;
+  border-radius: 12px;
+  margin: 1rem 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.upgrade-card {
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.lock-icon-wrapper {
+  background: #f8f9fa;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.5rem;
+  color: #6c757d;
+  font-size: 1.5rem;
+}
+
+.pro-badge {
+  position: absolute;
+  top: 20px;
+  right: -30px;
+  background: #ffd700;
+  color: #333;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.upgrade-card h2 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+}
+
+.feature-locked-msg {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  text-align: left;
+  display: inline-block;
+}
+
+.features-list li {
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  color: #34495e;
+  font-size: 1.05rem;
+}
+
+.check-icon {
+  color: #27ae60;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.upgrade-cta-btn {
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%;
+  max-width: 350px;
+}
+
+.upgrade-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(110, 142, 251, 0.4);
+}
+
+.upgrade-cta-btn:active {
+  transform: translateY(0);
+}
+
+.upgrade-cta-btn.benefit-focus {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.upgrade-fallback {
+  background: #fff5f5;
+  color: #c53030;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #feb2b2;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .upgrade-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .upgrade-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .upgrade-cta-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .upgrade-prompt-container {
+    padding: 1rem;
+  }
+  
+  .upgrade-card h2 {
+    font-size: 1.4rem;
+  }
+  
+  .features-list li {
+    font-size: 0.95rem;
+  }
+}
+
+/* Accessibility Focus States */
+.upgrade-cta-btn:focus {
+  outline: 3px solid rgba(110, 142, 251, 0.5);
+  outline-offset: 2px;
+}

@@ -14,3 +14,24 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Resend Email Integration
+
+This project now includes a contact form that sends email using Resend.
+
+1. Copy `.env.example` to `.env`.
+2. Add your Resend API key to `RESEND_API_KEY`.
+3. Set `RESEND_TO_EMAIL` to the inbox where you want contact messages.
+4. Set `RESEND_FROM_EMAIL` to a verified sender in your Resend account.
+
+Run frontend and backend in separate terminals:
+
+```bash
+npm run dev
+```
+
+```bash
+npm run start
+```
+
+The frontend submits to `VITE_API_BASE_URL/api/contact`.

@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
@@ -8,7 +9,7 @@ import Therapist from "./components/Therapist";
 import Products from "./components/Products";
 import TherapistCall from "./components/TherapyCall";
 import Prediction from "./components/Prediction";
-import Contact from "./components/FAQ";
+import ContactForm from "./components/ContactForm";
 import Games from "./components/Games";
 import GameScreen from "./components/GameScreen";
 
@@ -112,29 +113,7 @@ function MainPage() {
     </div>
   </div>
 
-  {/* CONTACT US SECTION */}
-<div className="contact-info">
-  <h1>Contact Us</h1>
-
-  <div className="contact-cards">
-
-    <div className="contact-card">
-      <h3>Sarthak Sharma</h3>
-      <p>Email: sartunes30@gmail.com</p>
-    </div>
-
-    <div className="contact-card">
-      <h3>Gargi Kaushik</h3>
-      <p>Email: gargikaushik1711@gmail.com</p>
-    </div>
-
-    <div className="contact-card">
-      <h3>Kanak Aggrawal</h3>
-      <p>Email: Kanakhtsnew@gmail.com</p>
-    </div>
-
-  </div>
-</div>
+  {/* <ContactForm /> */}
 
 </section>
 
@@ -146,11 +125,13 @@ function MainPage() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/games" element={<Games />} />
-      <Route path="/games/:id" element={<GameScreen />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/games/:id" element={<GameScreen />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 

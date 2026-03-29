@@ -3,7 +3,8 @@ import contactImg from "../assets/contact.jpg";
 // replace with your image name if you paste locally
 
 const configuredApiBase = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
-const apiBaseUrl = import.meta.env.DEV ? "" : configuredApiBase;
+// In local dev, use backend directly to avoid silent proxy/env misconfiguration.
+const apiBaseUrl = configuredApiBase || (import.meta.env.DEV ? "http://localhost:5000" : "");
 
 const Therapist = () => {
   const [formData, setFormData] = useState({
@@ -61,8 +62,8 @@ const Therapist = () => {
     const payload = {
       name: `${formData.firstName} ${formData.lastName}`.trim(),
       email: formData.email,
-      subject: "Therapist Contact Request",
-      message: `Phone: ${formData.phone}\nSymptoms: ${formData.symptom}`,
+      subject: `Therapist Contact Request | Phone: ${formData.phone}`,
+      message: formData.symptom.trim(),
     };
 
     try {
@@ -89,9 +90,13 @@ const Therapist = () => {
         symptom: "",
       });
     } catch (error) {
+      const message =
+        error?.message === "Failed to fetch"
+          ? "Cannot reach backend API. Make sure server is running on port 5000."
+          : error.message || "Unable to submit your request right now.";
       setStatus({
         type: "error",
-        message: error.message || "Unable to submit your request right now.",
+        message,
       });
     } finally {
       setIsSubmitting(false);

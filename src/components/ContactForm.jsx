@@ -8,7 +8,8 @@ const initialFormState = {
 };
 
 const configuredApiBase = (import.meta.env.VITE_API_BASE_URL || "").replace(/\/$/, "");
-const apiBaseUrl = import.meta.env.DEV ? "" : configuredApiBase;
+// In local dev, use backend directly to avoid silent proxy/env misconfiguration.
+const apiBaseUrl = configuredApiBase || (import.meta.env.DEV ? "http://localhost:5000" : "");
 
 export default function ContactForm() {
   const [formData, setFormData] = useState(initialFormState);
@@ -55,9 +56,13 @@ export default function ContactForm() {
       });
       setFormData(initialFormState);
     } catch (error) {
+      const message =
+        error?.message === "Failed to fetch"
+          ? "Cannot reach backend API. Make sure server is running on port 5000."
+          : error.message || "Unable to send your message right now.";
       setStatus({
         type: "error",
-        message: error.message || "Unable to send your message right now.",
+        message,
       });
     } finally {
       setIsSubmitting(false);

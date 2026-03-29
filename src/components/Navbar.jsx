@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaCrown, FaLanguage } from "react-icons/fa";
+import { FaCrown } from "react-icons/fa";
 
 const Navbar = () => {
-  const { user, setLanguage } = useAuth();
-  
+  const { user } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth > 960) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
+      setMenuOpen(false);
     }
   };
 
@@ -16,7 +29,19 @@ const Navbar = () => {
     <div className="navbar">
       <div className="logo">Dyslexis</div>
 
-      <div className="nav-links">
+      <button
+        type="button"
+        className="nav-toggle"
+        aria-label="Toggle navigation"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen((prev) => !prev)}
+      >
+        <span />
+        <span />
+        <span />
+      </button>
+
+      <div className={`nav-links ${menuOpen ? "open" : ""}`}>
         <button onClick={() => scrollToSection("home")}>Home</button>
         <button onClick={() => scrollToSection("about")}>About</button>
         <button onClick={() => scrollToSection("services")}>Services</button>

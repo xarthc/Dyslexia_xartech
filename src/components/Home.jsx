@@ -1,22 +1,14 @@
-import image1 from "../assets/image1.png";
-import chatbot from "../assets/chatbot.png";
-import background from "../assets/background.png";
+import banner3 from "../assets/banner3.jpeg";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const openChat = () => {
-    if (window.botpress) {
-      window.botpress.open();
-    }
-  };
-
   return (
     <div
       className="hero-section"
       style={{
-        backgroundImage: `url(${background})`,
+        backgroundImage: `url(${banner3})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -33,11 +25,6 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="hero-right">
-        <img src={image1} className="quote-img" alt="Quote" />
-      </div>
-
-      
     </div>
   );
 };

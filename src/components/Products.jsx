@@ -98,25 +98,14 @@ function Products() {
   };
 
   return (
-    <div className="products-page"
-
-//       style={{
-
-//         backgroundImage:
-
-//           "url('https://img.freepik.com/premium-photo/navy-blue-background-images-background-copy-space_1179130-728432.jpg')",
-
-//         backgroundRepeat: "no-repeat",
-
-//         backgroundSize: "cover",
-
-//         backgroundPosition: "center",
-
-//       }}
-
-    >
+    <div className="products-page">
       <div className="products-header">
-        <h1>Our Products</h1>
+        <div>
+          <h1>Our Products</h1>
+          <p className="products-subtitle">
+            Curated tools and resources for supportive learning at home.
+          </p>
+        </div>
         <button className="cart-btn" onClick={() => setShowCart(true)}>
           🛒 Cart ({cart.length})
         </button>

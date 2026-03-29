@@ -14,24 +14,25 @@ function GameScreen() {
         <button className="back-btn" onClick={() => navigate("/games")}>
           ← Back
         </button>
-        <p>Game not found</p>
+        <p className="game-error">Game not found</p>
       </div>
     );
   }
 
   return (
     <div className="game-screen">
-      <button className="back-btn" onClick={() => navigate("/games")}>
-        ← Back
-      </button>
+      <div className="game-topbar">
+        <button className="back-btn" onClick={() => navigate("/games")}>
+          ← Back
+        </button>
 
-      <h1>{game.title}</h1>
+        <h1>{game.title}</h1>
+      </div>
 
       <div className="game-area">
         <iframe
           src={game.url}
-          width="90%"
-          height="900"
+          className="game-iframe"
           frameBorder="0"
           allowFullScreen
           title={game.title}

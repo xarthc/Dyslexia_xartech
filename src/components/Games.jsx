@@ -25,13 +25,18 @@ function Games() {
 
   return (
     <div className="games-page">
-       <button
+      <div className="games-header">
+        <button
         className="home-btn"
         onClick={() => navigate("/")}
-      >
-        ⬅ Back to Website
-      </button>
-      <h1 className="games-title">Brain Training Games</h1>
+        >
+          ⬅ Back to Website
+        </button>
+        <h1 className="games-title">Brain Training Games</h1>
+        <p className="games-subtitle">
+          Explore interactive activities designed to improve focus, memory, and literacy skills.
+        </p>
+      </div>
 
       <div className="games-grid">
         {games.map((game) => (
